@@ -1,0 +1,44 @@
+{
+  "name": "@unfold/simple-rpc",
+  "version": "0.0.1",
+  "description": "Transport agnostic Simple rpc",
+  "main": "index.js",
+  "author": "sudhakar",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist/",
+    "prepublishOnly": "npm run build",
+    "build": "npm run clean && tsc && babel dist/mocks.js --out-file dist/mocks.js",
+    "test": "jest",
+    "cover": "jest --coverage"
+  },
+  "dependencies": {
+    "debug": "^3.1.0",
+    "isomorphic-ws": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/debug": "^0.0.30",
+    "@types/jest": "^22.2.0",
+    "@types/msgpack-lite": "^0.1.6",
+    "@types/ws": "^4.0.1",
+    "jest": "^22.4.2",
+    "msgpack-lite": "^0.1.26",
+    "ts-jest": "^22.4.1",
+    "ts-node": "^4.0.1",
+    "typescript": "^2.7.2",
+    "ws": "^5.1.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
+  }
+}
