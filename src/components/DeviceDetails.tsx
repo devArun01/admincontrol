@@ -7,9 +7,8 @@ import { DeviceData } from './Main'
 import { XDevice } from '../components/XDevice'
 import { Logs } from './Logs'
 import {
-  TopContainer,
-  DeviceDataContainer,
-  BottomContainer,
+  LeftContainer,
+  RightContainer,
   DeviceLogs,
   DeviceArea,
   DeviceTable1,
@@ -17,6 +16,7 @@ import {
   DTableData1,
   DTableData2,
   DeviceIconContainer,
+  LRContainer,
 } from './StyledComps'
 import { DeviceType, Arch, FormFactor, IAdmin } from '../../../packages/types'
 import { Switch } from 'antd'
@@ -52,8 +52,8 @@ export class DeviceDetails extends React.Component<MyProps, MyState> {
 
     return (
       <React.Fragment>
-        <TopContainer>
-          <DeviceDataContainer>
+        <LRContainer>
+          <LeftContainer>
             <DeviceIconContainer>
               {(type === 1 || type === 2) && <Icon size={60} icon={apple} />}
               {(type === 3 || type === 4) && <Icon size={60} icon={android} />}
@@ -61,7 +61,10 @@ export class DeviceDetails extends React.Component<MyProps, MyState> {
             <DeviceTable1>
               <tr>
                 <DTableData1>
-                  <b>In Use :</b> &nbsp;&nbsp;<Switch checked={inUse} />
+                  <b>In Use :</b> &nbsp;&nbsp;<Switch
+                    checked={inUse}
+                    size={'small'}
+                  />
                 </DTableData1>
               </tr>
               <tr>
@@ -105,13 +108,13 @@ export class DeviceDetails extends React.Component<MyProps, MyState> {
             <DeviceLogs>
               <Logs />
             </DeviceLogs>
-          </DeviceDataContainer>
-        </TopContainer>
-        <BottomContainer>
-          <DeviceArea>
-            <XDevice />
-          </DeviceArea>
-        </BottomContainer>
+          </LeftContainer>
+          <RightContainer>
+            <DeviceArea>
+              <XDevice />
+            </DeviceArea>
+          </RightContainer>
+        </LRContainer>
       </React.Fragment>
     )
   }

@@ -40,17 +40,16 @@ export class Logs extends React.Component<any, any> {
           id={`logCount${this.i - 1}`}
           style={{
             backgroundColor: '#f5f5f5',
-            margin: '2%',
+            margin: '1%',
             borderRadius: '5px',
-            padding: '2% 2%',
-            width: '75%',
+            padding: '2% 1%',
+            width: '98%',
             height: 'auto',
             wordWrap: 'break-word',
           }}
         >
           {this.state.data[index]}
         </p>
-        <br />
       </div>
     )
   }

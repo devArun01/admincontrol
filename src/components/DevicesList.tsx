@@ -78,7 +78,14 @@ export class DevicesList extends React.Component<MyProps, MyState> {
       dataIndex: 'inUse',
       render: param => (
         <div>
-          <Switch checked={param} />
+          <Switch
+            checked={param}
+            onChange={() => {
+              param = !param
+              alert(param)
+            }}
+            size={'small'}
+          />
         </div>
       ),
     },

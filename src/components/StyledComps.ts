@@ -2,13 +2,15 @@ import styled from 'styled-components'
 
 export const ListArea = styled.div`
   position: absolute;
+  min-width: 500px;
   width: 96vw;
   top: 0px;
   left: 0;
   margin: 10vh 2vw 0vh 2vw;
 `
 export const NavBarDiv = styled.div`
-  width: 100vw;
+  min-width: 400px;
+  width: 100%;
   color: white;
   position: absolute;
   margin: 0;
@@ -39,19 +41,18 @@ export const NavTitle = styled.h2`
   font-size: 24px;
   font-family: 'Roboto', sans-serif;
 `
-
-export const TopContainer = styled.div`
-  position: absolute;
-  top: 8vh;
-  height: 20vh;
-  width: 100%;
+export const LRContainer = styled.div`
+  display: flex;
 `
-export const DeviceDataContainer = styled.div`
-  position: absolute;
-  top: 0;
+
+export const LeftContainer = styled.div`
+  position: relative;
+  top: 8vh;
+  min-height: 500px;
+  min-width: 500px;
   height: 90vh;
-  width: 58%;
-  margin: 0 1%;
+  width: 58vw;
+  margin: 0 1vw;
   font-size: 12px;
   color: black;
   background-color: #f3fafa;
@@ -85,13 +86,14 @@ export const DTableData2 = styled.td`
   padding: 0 1%;
 `
 
-export const BottomContainer = styled.div`
-  position: absolute;
+export const RightContainer = styled.div`
+  position: relative;
   top: 8vh;
-  left: 60%;
+  min-height: 500px;
+  min-width: 450px;
   height: 90vh;
-  width: 38%;
-  margin: 0 1%;
+  width: 39vw;
+  margin: 0;
   background-color: #f5f5f5;
 `
 export const DeviceLogs = styled.div`
