@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Icon } from 'react-icons-kit'
-import { longArrowLeft } from 'react-icons-kit/fa/longArrowLeft'
+import { arrow_left } from 'react-icons-kit/ikons/arrow_left'
 import { NavBarDiv, NavTitle, IconContainer } from './StyledComps'
 
 export class NavWithProps extends React.Component<any, any> {
@@ -10,11 +10,15 @@ export class NavWithProps extends React.Component<any, any> {
     return (
       <NavBarDiv>
         {showNavBar && (
-          <IconContainer onClick={this.props.history.goBack}>
-            <Icon size={'30'} icon={longArrowLeft} />
-          </IconContainer>
+          <div>
+            <IconContainer onClick={this.props.history.goBack}>
+              <Icon size={'20'} icon={arrow_left} />
+              BACK
+            </IconContainer>
+            <NavTitle>Device Details</NavTitle>
+          </div>
         )}
-        <NavTitle>Admin Panel</NavTitle>
+        {!showNavBar && <NavTitle>Admin Panel</NavTitle>}
       </NavBarDiv>
     )
   }

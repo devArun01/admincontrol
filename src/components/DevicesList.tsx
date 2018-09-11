@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { IO } from '../IO'
-import { Table } from 'antd'
+import { Table, Switch } from 'antd'
 import { RouteComponentProps } from 'react-router'
 import { DeviceData } from './Main'
 import { ListArea } from './StyledComps'
@@ -32,6 +32,7 @@ export class DevicesList extends React.Component<MyProps, MyState> {
       render: param => {
         return (
           <a
+            style={{ left: 0 }}
             onClick={() => {
               IO.instance.useDevice(param)
               this.props.history.push(`/devices/${param}`)
@@ -77,8 +78,7 @@ export class DevicesList extends React.Component<MyProps, MyState> {
       dataIndex: 'inUse',
       render: param => (
         <div>
-          {param && 'Yes'}
-          {!param && 'No'}
+          <Switch checked={param} />
         </div>
       ),
     },
@@ -100,8 +100,7 @@ export class DevicesList extends React.Component<MyProps, MyState> {
           pagination={false}
           dataSource={this.props.devices}
           rowKey={record => record.id}
-          size={'small'}
-          bordered
+          size={'middle'}
         />
       </ListArea>
     )

@@ -8,17 +8,18 @@ import { XDevice } from '../components/XDevice'
 import { Logs } from './Logs'
 import {
   TopContainer,
-  PhoneKindLogo,
   DeviceDataContainer,
   BottomContainer,
   DeviceLogs,
   DeviceArea,
-  DeviceTable,
-  DTableHead,
-  DTableHeader,
-  DTableData,
+  DeviceTable1,
+  DeviceTable2,
+  DTableData1,
+  DTableData2,
+  DeviceIconContainer,
 } from './StyledComps'
 import { DeviceType, Arch, FormFactor, IAdmin } from '../../../packages/types'
+import { Switch } from 'antd'
 
 type MyProps = RouteComponentProps<{ id: string }> & {
   getDevice(id: string): DeviceData
@@ -52,50 +53,61 @@ export class DeviceDetails extends React.Component<MyProps, MyState> {
     return (
       <React.Fragment>
         <TopContainer>
-          <PhoneKindLogo>
-            {(type === 1 || type === 2) && <Icon size={'35%'} icon={apple} />}
-            {(type === 3 || type === 4) && <Icon size={'35%'} icon={android} />}
-          </PhoneKindLogo>
           <DeviceDataContainer>
-            <DeviceTable>
-              <DTableHead>
-                <tr>
-                  <DTableHeader colSpan={2}>
-                    <h3>Device Details</h3>
-                  </DTableHeader>
-                </tr>
-              </DTableHead>
+            <DeviceIconContainer>
+              {(type === 1 || type === 2) && <Icon size={60} icon={apple} />}
+              {(type === 3 || type === 4) && <Icon size={60} icon={android} />}
+            </DeviceIconContainer>
+            <DeviceTable1>
+              <tr>
+                <DTableData1>
+                  <b>In Use :</b> &nbsp;&nbsp;<Switch checked={inUse} />
+                </DTableData1>
+              </tr>
+              <tr>
+                <DTableData1>
+                  <b>Arch : </b>
+                  {Arch[arch]}
+                </DTableData1>
+              </tr>
+              <tr>
+                <DTableData1>
+                  <b>Form Factor : </b>
+                  {FormFactor[formFactor]}
+                </DTableData1>
+              </tr>
+            </DeviceTable1>
+            <DeviceTable2>
               <tbody>
                 <tr>
-                  <DTableData>Device ID : {id}</DTableData>
-                  <DTableData>Device Kind : {DeviceType[type]}</DTableData>
+                  <DTableData2>
+                    <b>Device Kind : </b>
+                    {DeviceType[type]}
+                  </DTableData2>
                 </tr>
                 <tr>
-                  <DTableData>
-                    Form Factor : {FormFactor[formFactor]}
-                  </DTableData>
-                  <DTableData>Arch : {Arch[arch]}</DTableData>
+                  <DTableData2>
+                    <b>Status :</b> {IAdmin.DeviceStatus[status]}
+                  </DTableData2>
                 </tr>
                 <tr>
-                  <DTableData>Host Name : {hostname}</DTableData>
-                  <DTableData>
-                    In Use :{' '}
-                    {(inUse && 'Yes(inUse)') || (!inUse && 'No(inUse)')}
-                  </DTableData>
+                  <DTableData2>
+                    <b>Host Name :</b> {hostname}
+                  </DTableData2>
                 </tr>
                 <tr>
-                  <DTableData>
-                    Status : {IAdmin.DeviceStatus[status]}
-                  </DTableData>
+                  <DTableData2>
+                    <b>Device ID :</b> {id}
+                  </DTableData2>
                 </tr>
               </tbody>
-            </DeviceTable>
+            </DeviceTable2>
+            <DeviceLogs>
+              <Logs />
+            </DeviceLogs>
           </DeviceDataContainer>
         </TopContainer>
         <BottomContainer>
-          <DeviceLogs>
-            <Logs />
-          </DeviceLogs>
           <DeviceArea>
             <XDevice />
           </DeviceArea>

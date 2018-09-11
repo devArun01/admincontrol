@@ -3,37 +3,6 @@ import VirtualList from 'react-tiny-virtual-list'
 import { IO } from '../IO'
 import { Log } from '../../../packages/types'
 
-const dataArray = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-]
-
 export class Logs extends React.Component<any, any> {
   state = {
     data: [],
@@ -72,9 +41,11 @@ export class Logs extends React.Component<any, any> {
           style={{
             backgroundColor: '#f5f5f5',
             margin: '2%',
-            borderRadius: '50px',
-            padding: '1% 2%',
-            display: 'inline-block',
+            borderRadius: '5px',
+            padding: '2% 2%',
+            width: '75%',
+            height: 'auto',
+            wordWrap: 'break-word',
           }}
         >
           {this.state.data[index]}

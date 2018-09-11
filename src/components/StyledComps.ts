@@ -14,112 +14,118 @@ export const NavBarDiv = styled.div`
   margin: 0;
   left: 0;
   top: 0;
-  height: 7vh;
+  height: 8vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
 `
 export const IconContainer = styled.a`
   text-decoration: none;
   position: absolute;
   z-index: 3;
+  top: 0;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
   left: 20px;
   color: black;
 `
 
 export const NavTitle = styled.h2`
-  margin: 0px 2%;
+  margin: 1% 0%;
   color: black;
+  font-size: 24px;
   font-family: 'Roboto', sans-serif;
 `
 
 export const TopContainer = styled.div`
   position: absolute;
-  top: 7vh;
-  height: 25vh;
+  top: 8vh;
+  height: 20vh;
   width: 100%;
-`
-export const PhoneKindLogo = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 22vh;
-  margin: 1.5vh 0vw;
-  width: 16%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
 `
 export const DeviceDataContainer = styled.div`
   position: absolute;
-  top: 5%;
-  left: 12%;
-  height: 22vh;
-  margin: 0.5vh 3%;
-  width: 84%;
-  overflow-y: scroll;
+  top: 0;
+  height: 90vh;
+  width: 58%;
+  margin: 0 1%;
   font-size: 12px;
   color: black;
-  border-radius: 5px;
   background-color: #f3fafa;
 `
-export const DeviceTable = styled.table`
-  width: 100%;
-  height: 100%;
-`
-export const DTableHead = styled.thead`
-  width: 100%;
-`
-export const DTableHeader = styled.th`
-  padding: 0 5%;
+
+export const DeviceTable1 = styled.table`
+  position: absolute;
+  width: 30%;
+  left: 20%;
+  top: 0;
+  margin: 3.5vh 0;
+  height: 18vh;
 `
 
-export const DTableData = styled.td`
+export const DeviceTable2 = styled.table`
+  position: absolute;
   width: 50%;
-  padding: 0 5%;
+  left: 50%;
+  top: 0;
+  margin: 2vh 0;
+  height: 21vh;
+`
+export const DTableData1 = styled.td`
+  width: 30%;
+  vertical-align: top;
+  padding: 0 1%;
+`
+export const DTableData2 = styled.td`
+  width: 50%;
+  vertical-align: top;
+  padding: 0 1%;
 `
 
 export const BottomContainer = styled.div`
   position: absolute;
-  top: 32vh;
-  height: 65vh;
+  top: 8vh;
+  left: 60%;
+  height: 90vh;
+  width: 38%;
   margin: 0 1%;
-  width: 98%;
   background-color: #f5f5f5;
 `
 export const DeviceLogs = styled.div`
   position: absolute;
-  top: 0;
+  top: 23vh;
   left: 0%;
-  height: 61vh;
-  width: 53%;
-  margin: 2vh 1%;
+  height: 65vh;
+  width: 98%;
+  margin: 0 1%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: black;
   background-color: white;
-  border-radius: 5px;
 `
 export const DeviceArea = styled.div`
   position: absolute;
   top: 0;
-  left: 55%;
-  height: 61vh;
-  width: 43%;
-  margin: 2vh 1%;
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: black;
-  border-radius: 5px;
 `
+export const DeviceIconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 21vh;
+  width: 20%;
+  margin: 1vh 0;
+`
+
 export const Container = styled.div`
   min-width: 400px;
   min-height: 400px;

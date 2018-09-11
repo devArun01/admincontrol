@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "develop": "parcel ./src/index.html",
+    "develop": "parcel ./src/index.html --no-cache",
     "build": "parcel build ./src/index.html --public-url '/'",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",
     "test": "jest",
