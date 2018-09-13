@@ -17,8 +17,6 @@ export class IO {
   private isOpen = false
   private openResolver?: () => void
   private listeners: { [k: string]: EventHandler[] } = Object.create(null)
-  private _screenFrame?: IOScreenFrame
-  private _logData?: string
 
   public static init(url: string) {
     if (!this._instance) this._instance = new IO(url)
@@ -52,12 +50,15 @@ export class IO {
 
     this.rpc = new SimpleRpc(this.ws, {
       onLog: async (entry: Log.Entry) => {
-        this.setLogData(entry['message'])
-        this.emit('onLogEntry', entry['message'])
+        this.emit('LogEntry', entry['message'])
       },
-      onApp: async (appInfo: IApp.ConnProps) => {},
+      onApp: async (appInfo: IApp.ConnProps) => {
+        console.log('[appInfo]' + appInfo)
+        this.emit('appLaunch', appInfo)
+      },
       onStatus: async (id: string, status: IAdmin.DeviceStatus) => {
-        // console.log('[onStatus]: ' + id, status)
+        console.log('status: ' + status)
+        this.emit('statusChange', status)
       },
       onScreenFrame: async (frame: ScreenFrame) => {
         const { x, y, w, h } = frame
@@ -68,7 +69,6 @@ export class IO {
 
         screenFrame.img.onload = () => {
           this.emit('onScreenFrame', screenFrame)
-          this.setScreenFrame(screenFrame)
         }
 
         screenFrame.img.src = blobUrl
@@ -86,6 +86,7 @@ export class IO {
 
   public async getAllDevices() {
     const devices: any = await this.rpc.request('getAllDevices')
+    console.log('getAllDevices: ' + devices[0]['id'])
     return devices
   }
 
@@ -93,6 +94,11 @@ export class IO {
     const deviceInfo: any = await this.rpc.request('useDevice', id)
     // console.log('[useDevice]: ' + deviceInfo)
     return deviceInfo
+  }
+
+  public async disableDevice(id: any) {
+    const deviceToDisable: any = await this.rpc.request('diableDevice', id)
+    return deviceToDisable
   }
 
   /**
@@ -129,31 +135,5 @@ export class IO {
     if (this.listeners[type]) for (const fn of this.listeners[type]) fn(...args)
     if (this.listeners['*'])
       for (const fn of this.listeners['*']) fn(type, ...args)
-  }
-
-  /**
-   * setScreenFrame caches the current screenFrame, so that it
-   * can be reused when changed routes
-   */
-  private setScreenFrame = (frame: IOScreenFrame) => {
-    if (this._screenFrame) {
-      window.URL.revokeObjectURL(this._screenFrame.img.src)
-    }
-    this._screenFrame = frame
-  }
-
-  public get screenFrame() {
-    return this._screenFrame
-  }
-
-  private setLogData = (log: string) => {
-    console.log('[setLogData] : ' + log)
-    this._logData = log
-    console.log('[setLogData aftersetting] : ' + log)
-  }
-
-  public get getLogData() {
-    console.log('[getLogData] : ' + this._logData)
-    return this._logData
   }
 }

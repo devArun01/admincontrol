@@ -11,7 +11,7 @@ export type DeviceData = {
   arch: Arch
   hostname: string
   inUse: boolean
-  status: string
+  status: number
 }
 
 type MyState = {
@@ -30,7 +30,6 @@ export class Main extends React.Component<{}, MyState> {
   }
 
   setDevices = (devices: DeviceData[]) => {
-    // console.log(devices)
     this.setState({ devices })
   }
 
@@ -39,7 +38,7 @@ export class Main extends React.Component<{}, MyState> {
   }
 
   render() {
-    const { devices, activeDevice } = this.state
+    const { devices } = this.state
     return (
       <Switch>
         <Route
@@ -57,7 +56,11 @@ export class Main extends React.Component<{}, MyState> {
           exact
           path="/devices/:id"
           render={props => (
-            <DeviceDetails {...props} getDevice={this.getDevice} />
+            <DeviceDetails
+              {...props}
+              getDevice={this.getDevice}
+              setDevices={this.setDevices}
+            />
           )}
         />
       </Switch>

@@ -13,15 +13,45 @@ type MyProps = RouteComponentProps<{}> & {
   setDevices(devices: DeviceData[])
 }
 
-type MyState = {}
+type MyState = {
+  changesMade: boolean
+}
 
 export class DevicesList extends React.Component<MyProps, MyState> {
   constructor(props: any) {
     super(props)
+
+    this.state = {
+      changesMade: false,
+    }
+  }
+
+  componentDidMount() {
     IO.init('ws://localhost:3030/admin')
     IO.instance.ioReady().then(() => {
       IO.instance.getAllDevices().then(this.props.setDevices)
     })
+    IO.instance.on('appLaunch', this.changeStatus)
+    IO.instance.on('statusChange', this.updateDeviceValues)
+  }
+
+  componentWillUnmount() {
+    IO.instance.off('appLaunch', this.changeStatus)
+    IO.instance.off('statusChange', this.updateDeviceValues)
+  }
+
+  changeStatus = (status: any) => {
+    console.log('changeStatus to ' + status['apiKey'])
+    IO.instance.ioReady().then(() => {
+      IO.instance.getAllDevices().then(this.props.setDevices)
+    })
+  }
+
+  updateDeviceValues = (status: IAdmin.DeviceStatus) => {
+    console.log('update: ' + IAdmin.DeviceStatus[status])
+    // this.setState({ changesMade: !this.state.changesMade }, () => {
+    //   IO.instance.getAllDevices().then(this.props.setDevices)
+    // })
   }
 
   private columns = [
@@ -76,18 +106,14 @@ export class DevicesList extends React.Component<MyProps, MyState> {
       key: 'InUse',
       title: 'InUse',
       dataIndex: 'inUse',
-      render: param => (
-        <div>
-          <Switch
-            checked={param}
-            onChange={() => {
-              param = !param
-              alert(param)
-            }}
-            size={'small'}
-          />
-        </div>
-      ),
+      render: param => {
+        return (
+          <div>
+            {param && 'Yes'}
+            {!param && 'No'}
+          </div>
+        )
+      },
     },
     {
       key: 'Status',
@@ -95,6 +121,35 @@ export class DevicesList extends React.Component<MyProps, MyState> {
       dataIndex: 'status',
       render: param => {
         return <div>{IAdmin.DeviceStatus[param]}</div>
+      },
+    },
+    {
+      key: 'Enable',
+      title: 'Enable/Disable',
+      render: param => {
+        return (
+          <div style={{ paddingLeft: '30%' }}>
+            <Switch
+              size={'small'}
+              disabled={param.status === 4 ? true : false}
+              defaultChecked={
+                param.status === 0 ||
+                param.status === 1 ||
+                param.status === 2 ||
+                param.status === 3
+                  ? true
+                  : false
+              }
+              onChange={async () => {
+                IO.instance.disableDevice(param.id).then(() => {
+                  this.setState({ changesMade: true }, () => {
+                    IO.instance.getAllDevices().then(this.props.setDevices)
+                  })
+                })
+              }}
+            />
+          </div>
+        )
       },
     },
   ]

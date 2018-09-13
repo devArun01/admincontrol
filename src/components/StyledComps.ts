@@ -63,14 +63,14 @@ export const DeviceTable1 = styled.table`
   width: 30%;
   left: 20%;
   top: 0;
-  margin: 3.5vh 0;
-  height: 18vh;
+  margin: 2vh 0;
+  height: 21vh;
 `
 
 export const DeviceTable2 = styled.table`
   position: absolute;
-  width: 50%;
-  left: 50%;
+  width: 80%;
+  left: 20%;
   top: 0;
   margin: 2vh 0;
   height: 21vh;

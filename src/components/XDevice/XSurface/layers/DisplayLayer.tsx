@@ -36,7 +36,6 @@ export class DisplayLayer extends React.Component<MyProps> {
   componentDidMount() {
     IO.instance.on('clearScreen', this.clearScreen)
     IO.instance.on('onScreenFrame', this.draw)
-    if (IO.instance.screenFrame) this.draw(IO.instance.screenFrame)
   }
 
   componentDidCatch(error, info) {

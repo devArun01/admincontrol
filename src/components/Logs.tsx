@@ -15,16 +15,14 @@ export class Logs extends React.Component<any, any> {
   private i = 0
 
   componentDidMount() {
-    IO.instance.on('onLogEntry', this.activateRender)
-    if (IO.instance.getLogData) this.activateRender(IO.instance.getLogData)
+    IO.instance.on('LogEntry', this.activateRender)
   }
 
   componentWillUnmount() {
-    IO.instance.off('onLog', this.activateRender)
+    IO.instance.off('LogEntry', this.activateRender)
   }
 
   activateRender = (log: string) => {
-    console.log('[activateRender]')
     this.setState({ data: [...this.state.data, log] }, () => {
       document
         .getElementById(`logCount${this.i - 1}`)
