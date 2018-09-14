@@ -4,7 +4,13 @@ import { Table, Switch } from 'antd'
 import { RouteComponentProps } from 'react-router'
 import { DeviceData } from './Main'
 import { ListArea } from './StyledComps'
-import { DeviceType, Arch, FormFactor, IAdmin } from '../../../packages/types'
+import {
+  DeviceType,
+  Arch,
+  FormFactor,
+  IAdmin,
+  IApp,
+} from '../../../packages/types'
 
 class DeviceTable extends Table<DeviceData> {}
 
@@ -31,27 +37,27 @@ export class DevicesList extends React.Component<MyProps, MyState> {
     IO.instance.ioReady().then(() => {
       IO.instance.getAllDevices().then(this.props.setDevices)
     })
-    IO.instance.on('appLaunch', this.changeStatus)
-    IO.instance.on('statusChange', this.updateDeviceValues)
+    IO.instance.on('appLaunch', this.onAppLaunch)
+    IO.instance.on('statusChange', this.onStatus)
   }
 
   componentWillUnmount() {
-    IO.instance.off('appLaunch', this.changeStatus)
-    IO.instance.off('statusChange', this.updateDeviceValues)
+    IO.instance.off('appLaunch', this.onAppLaunch)
+    IO.instance.off('statusChange', this.onStatus)
   }
 
-  changeStatus = (status: any) => {
-    console.log('changeStatus to ' + status['apiKey'])
+  onAppLaunch = (appInfo: IApp.ConnProps) => {
+    console.log('changeStatus to ' + Object.values(appInfo))
     IO.instance.ioReady().then(() => {
       IO.instance.getAllDevices().then(this.props.setDevices)
     })
   }
 
-  updateDeviceValues = (status: IAdmin.DeviceStatus) => {
+  onStatus = (status: IAdmin.DeviceStatus) => {
     console.log('update: ' + IAdmin.DeviceStatus[status])
-    // this.setState({ changesMade: !this.state.changesMade }, () => {
-    //   IO.instance.getAllDevices().then(this.props.setDevices)
-    // })
+    IO.instance.ioReady().then(() => {
+      IO.instance.getAllDevices().then(this.props.setDevices)
+    })
   }
 
   private columns = [
